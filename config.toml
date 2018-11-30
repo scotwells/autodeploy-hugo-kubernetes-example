@@ -1,0 +1,8 @@
+baseURL = "https://todd.coffee"
+title = "Hi, I'm Todd"
+
+[author]
+  name = "Todd"
+
+[params]
+  homeSubtitle = "I break things"

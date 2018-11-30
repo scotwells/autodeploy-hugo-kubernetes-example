@@ -1,0 +1,22 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: {{ include "chart.fullname" . }}
+spec:
+  secretName: {{ include "chart.fullname" . }}-certificates
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: {{ index .Values.ingress.hosts 0 }}
+  dnsNames:
+  {{- range .Values.ingress.hosts }}
+    - {{ . | quote }}
+  {{- end }}
+  acme:
+    config:
+        - http01:
+            ingress: {{ include "chart.fullname" . }}
+          domains:
+          {{- range .Values.ingress.hosts }}
+            - {{ . | quote }}
+          {{- end }}
